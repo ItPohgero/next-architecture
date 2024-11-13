@@ -1,6 +1,6 @@
 "use server";
 
-import { ENV } from "@/configs/environment";
+import type { ENV } from "@/configs/environment";
 import { cookies } from "next/headers";
 
 type NameCookies = typeof ENV.TOKEN_KEY | "g_token" | "bg" | "text" | "style";

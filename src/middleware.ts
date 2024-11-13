@@ -1,16 +1,16 @@
 import { jwtVerify } from "jose";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { PATH } from "./shared/path";
 import { ENV } from "./configs/environment";
+import { PATH } from "./shared/path";
 
 const TOKEN_KEY = ENV.TOKEN_KEY;
 const JWT_SECRET = ENV.JWT_SCREET;
 
 export async function middleware(request: NextRequest) {
 	const token = request.cookies.get(TOKEN_KEY);
-    console.log({token});
-    
+	console.log({ token });
+
 	// Cek apakah user sudah berada di halaman "not found" untuk menghindari redirect loop
 	if (request.nextUrl.pathname === PATH.NOT_FOUND) {
 		return NextResponse.next();
@@ -45,5 +45,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: '/api/:path*',
+	matcher: "/api/:path*",
 };

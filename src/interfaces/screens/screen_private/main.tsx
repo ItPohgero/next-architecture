@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ScreenPrivate = () => {
-    return (
-        <div>ScreenPrivate</div>
-    )
-}
+	return <div>ScreenPrivate</div>;
+};
 
-export default ScreenPrivate
+export default ScreenPrivate;
