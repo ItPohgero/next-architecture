@@ -6,7 +6,6 @@ import { post } from "@/services/api/main_call";
 import { MAIN_ENDPOINT } from "@/services/api/main_endpoint";
 import { PATH } from "@/shared/path";
 import type { Inputs } from "@/types/screen_public.types";
-import { Button } from "antd";
 import { useRouter } from "next/navigation";
 import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
@@ -60,12 +59,12 @@ const ScreenPublic = () => {
                         rules={{ required: true }}
                     />
                     <div className="h-2" />
-                    <Button
+                    <button
                         className="bg-slate-800 py-2 px-4 rounded-xl minw-full"
-                        htmlType="submit"
+                        type="submit"
                     >
                         Submit
-                    </Button>
+                    </button>
                 </form>
             </div>
         </Fragment>
