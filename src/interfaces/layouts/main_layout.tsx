@@ -7,11 +7,9 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<Fragment>
 			<ProviderReduxToolkit>
-				<div className="bg-white">
-					<PublicLayout>
-						<main>{children}</main>
-					</PublicLayout>
-				</div>
+				<PublicLayout>
+					<div>{children}</div>
+				</PublicLayout>
 			</ProviderReduxToolkit>
 		</Fragment>
 	);

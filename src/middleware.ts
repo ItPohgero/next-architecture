@@ -23,17 +23,17 @@ export async function middleware(request: NextRequest) {
 
 	try {
 		// Verifikasi token JWT
-		const secret = new TextEncoder().encode(JWT_SECRET);
-		const { payload } = await jwtVerify(token.value, secret, {
-			algorithms: ["HS256"],
-		});
+		// const secret = new TextEncoder().encode(JWT_SECRET);
+		// const { payload } = await jwtVerify(token.value, secret, {
+		// 	algorithms: ["HS256"],
+		// });
 
 		// Cek apakah token sudah kedaluwarsa
-		const currentTime = Math.floor(Date.now() / 1000);
-		if (payload.exp && payload.exp < currentTime) {
-			request.cookies.delete(TOKEN_KEY);
-			return NextResponse.rewrite(new URL(PATH.NOT_FOUND, request.url));
-		}
+		// const currentTime = Math.floor(Date.now() / 1000);
+		// if (payload.exp && payload.exp < currentTime) {
+		// 	request.cookies.delete(TOKEN_KEY);
+		// 	return NextResponse.rewrite(new URL(PATH.NOT_FOUND, request.url));
+		// }
 
 		// Jika token valid, lanjutkan ke halaman tujuan
 		return NextResponse.next();
@@ -45,5 +45,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: "/api/:path*",
+	matcher: "/guard/:path*",
 };

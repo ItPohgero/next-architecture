@@ -1,13 +1,18 @@
 "use client";
+import { ENV } from "@/configs/environment";
 import FormInput from "@/interfaces/components/form-input";
+import { createCookies } from "@/modules/cookies";
 import { post } from "@/services/api/main_call";
 import { MAIN_ENDPOINT } from "@/services/api/main_endpoint";
+import { PATH } from "@/shared/path";
 import type { Inputs } from "@/types/screen_public.types";
 import { Button } from "antd";
+import { useRouter } from "next/navigation";
 import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
 
 const ScreenPublic = () => {
+    const router = useRouter();
     const {
         control,
         handleSubmit,
@@ -23,13 +28,16 @@ const ScreenPublic = () => {
         try {
             const { Kind, OK, StatusCode } = await post(MAIN_ENDPOINT.Auth.Login, data);
             console.log({ OK, StatusCode });
-            if(!OK) {
+            if (!OK) {
                 throw new Error();
             }
-            console.log({ Kind });
-        } catch (error) {
-
-        }
+            const resp = Kind as { accessToken: string };
+            await createCookies({
+                name: ENV.TOKEN_KEY,
+                data: resp.accessToken,
+            });
+            router.push(PATH.PRIVATE);
+        } catch (error) {}
     });
     return (
         <Fragment>
