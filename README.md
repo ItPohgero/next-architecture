@@ -37,6 +37,12 @@ This project leverages a modern stack to enhance development efficiency, code co
 
 10. **Next Themes**
    A library for handling dark mode and light mode in Next.js applications, making it easy to toggle between themes.
+
+11. **Next.js Toploader**
+   A library for loading content in Next.js applications, providing a loading indicator while content is being fetched.
+
+12. **dotenv-cli**
+   A CLI tool for loading environment variables from .env files. (bun add -d dotenv-cli)
 ---
 
 ### Getting Started

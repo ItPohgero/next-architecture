@@ -3,13 +3,15 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "bun run biome:lint && bun run biome:check && bun run biome:format && next build",
-		"start": "next start",
+		"dev": "dotenv -e ./envs/.env.development -- bun run next dev --turbopack",
+		"build": "dotenv -e ./envs/.env.production -- bun run biome:lint && bun run biome:check && bun run biome:format && next build",
+		"start": "dotenv -e ./envs/.env.production -- bun run next start",
 		"lint": "next lint",
 		"biome:lint": "bunx @biomejs/biome lint --write .",
 		"biome:check": "bunx @biomejs/biome check --write .",
-		"biome:format": "bunx @biomejs/biome format --write ."
+		"biome:format": "bunx @biomejs/biome format --write .",
+		"build:staging": "dotenv -e ./envs/.env.staging -- bun run biome:lint && bun run biome:check && bun run biome:format && next build",
+		"start:staging": "dotenv -e ./envs/.env.staging -- bun run next start"
 	},
 	"dependencies": {
 		"@ant-design/nextjs-registry": "^1.0.1",
@@ -35,6 +37,7 @@
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
+		"dotenv-cli": "^7.4.2",
 		"eslint": "^8",
 		"eslint-config-next": "15.0.3",
 		"postcss": "^8",

@@ -42,6 +42,7 @@ const ScreenPublic = () => {
         <Fragment>
             <div className="h-screen flex justify-center items-center">
                 <form onSubmit={onSubmit}>
+                    <div>{ENV.MODE}</div>
                     <FormInput
                         label="Username"
                         control={control}
