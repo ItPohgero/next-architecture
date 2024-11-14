@@ -5,17 +5,17 @@
 	"scripts": {
 		"dev:local": "dotenv -e ./envs/.env.development -- next dev",
 		"dev": "dotenv -e ./envs/.env.development -- [ -d .next ] || bun run build:dev && bun run start:obfuscated",
-		"build:dev": "next build && bun run obfuscate:static",
-		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
-		"start:obfuscated": "bun run next start",
 		"build": "dotenv -e ./envs/.env.production -- bun run biome:lint && bun run biome:check && bun run biome:format && next build && bun run obfuscate:static",
+		"build:dev": "next build && bun run obfuscate:static",
+		"build:staging": "dotenv -e ./envs/.env.staging -- bun run biome:lint && bun run biome:check && bun run biome:format && next build && bun run obfuscate:static",
 		"start": "dotenv -e ./envs/.env.production -- bun run next start",
+		"start:obfuscated": "bun run next start",
+		"start:staging": "dotenv -e ./envs/.env.staging -- bun run next start",
+		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
 		"lint": "next lint",
 		"biome:lint": "bunx @biomejs/biome lint --write .",
 		"biome:check": "bunx @biomejs/biome check --write .",
-		"biome:format": "bunx @biomejs/biome format --write .",
-		"build:staging": "dotenv -e ./envs/.env.staging -- bun run biome:lint && bun run biome:check && bun run biome:format && next build && bun run obfuscate:static",
-		"start:staging": "dotenv -e ./envs/.env.staging -- bun run next start"
+		"biome:format": "bunx @biomejs/biome format --write ."
 	},
 	"dependencies": {
 		"@iconify/react": "^5.0.2",
@@ -55,7 +55,6 @@
 		"eslint": "^8",
 		"eslint-config-next": "15.0.3",
 		"javascript-obfuscator": "^4.1.1",
-		"nextjs-obfuscator": "^3.1.0",
 		"postcss": "^8",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5"
