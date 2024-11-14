@@ -44,6 +44,9 @@ This project leverages a modern stack to enhance development efficiency, code co
 12. **dotenv-cli**
    A CLI tool for loading environment variables from .env files. (bun add -d dotenv-cli)
 
+13. **obfuscated**
+   The obfuscated command is used to obfuscate the static files in the Next.js app. It uses the JavaScript Obfuscator library to obfuscate the code and reduce the size of the files.
+   
 ---
 
 ### Getting Started
