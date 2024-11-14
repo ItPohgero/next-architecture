@@ -1,7 +1,7 @@
 "use client";
 import { ENV } from "@/configs/environment";
-import { Button } from "@/interfaces/components/ui/button";
 import FormInput from "@/interfaces/components/form-input";
+import { Button } from "@/interfaces/components/ui/button";
 import { createCookies } from "@/modules/cookies";
 import { post } from "@/services/api/main/call";
 import { MAIN_ENDPOINT } from "@/services/api/main/endpoint";
@@ -73,10 +73,7 @@ const ScreenPublic = () => {
 							rules={{ required: true }}
 						/>
 						<div className="h-4" />
-						<Button
-							disabled={loading}
-							className="w-full"
-						>
+						<Button disabled={loading} className="w-full">
 							Submit
 						</Button>
 					</form>

@@ -1,11 +1,8 @@
-import { format } from "date-fns"
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 import { debounce } from "lodash";
-import React, {
-	type ReactNode,
-	useEffect,
-	useMemo,
-	useState,
-} from "react";
+import { CalendarIcon } from "lucide-react";
+import React, { type ReactNode, useEffect, useMemo, useState } from "react";
 import {
 	type Control,
 	Controller,
@@ -16,15 +13,13 @@ import {
 	type Path,
 	type RegisterOptions,
 } from "react-hook-form";
+import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "./ui/calendar";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Label } from "./ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 export type OptionType = { label: string; value: string | number };
 
@@ -40,13 +35,7 @@ type CustomInputProps<
 		"valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
 	>;
 	label?: string;
-	type:
-	| "text"
-	| "password"
-	| "number"
-	| "date"
-	| "checkbox"
-	| "radio"
+	type: "text" | "password" | "number" | "date" | "checkbox" | "radio";
 	options?: OptionType[];
 	placeholder?: string;
 	defaultValue?: FieldPathValue<TFieldValues, TName>;
@@ -80,7 +69,7 @@ const FormInput = <
 	onSearch,
 	maxLength,
 }: CustomInputProps<TFieldValues, TName>) => {
-	const [searchInput, setSearchInput] = useState<string>("");
+	const [searchInput, setData] = useState<string>("");
 
 	const debouncedOnSearch = useMemo(
 		() =>
@@ -91,6 +80,7 @@ const FormInput = <
 	);
 
 	useEffect(() => {
+		setData("");
 		if (manualSearch) debouncedOnSearch(searchInput);
 		return () => debouncedOnSearch.cancel();
 	}, [searchInput, manualSearch, debouncedOnSearch]);
@@ -135,11 +125,15 @@ const FormInput = <
 								variant={"outline"}
 								className={cn(
 									"w-[280px] justify-start text-left font-normal",
-									!field.value && "text-muted-foreground"
+									!field.value && "text-muted-foreground",
 								)}
 							>
 								<CalendarIcon />
-								{field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+								{field.value ? (
+									format(field.value, "PPP")
+								) : (
+									<span>Pick a date</span>
+								)}
 							</Button>
 						</PopoverTrigger>
 						<PopoverContent className="w-auto p-0">
@@ -168,15 +162,18 @@ const FormInput = <
 						{...field}
 						onChange={(e) => field.onChange(e.target)}
 						value={field.value}
-						defaultValue="option-one">
+						defaultValue="option-one"
+					>
 						{options?.map((option) => (
 							<div key={option.value} className="flex items-center space-x-2">
-								<RadioGroupItem value={option.value as string} id={option?.value as string} />
+								<RadioGroupItem
+									value={option.value as string}
+									id={option?.value as string}
+								/>
 								<Label htmlFor={option?.value as string}>{option?.value}</Label>
 							</div>
 						))}
 					</RadioGroup>
-
 				);
 			default:
 				return (

@@ -45,5 +45,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: "/guard/:path*",
+	matcher: ["/guard/:path*", "/contact"],
 };
