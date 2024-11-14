@@ -2,6 +2,8 @@
 import ScreenPublic from "@/interfaces/screens/screen_public/main";
 import React from "react";
 
-const Page = () => <ScreenPublic />;
+const Page = () => {
+    return <ScreenPublic />
+};
 
 export default Page;
