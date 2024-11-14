@@ -3,14 +3,18 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "dotenv -e ./envs/.env.development -- bun run next dev --turbopack",
-		"build": "dotenv -e ./envs/.env.production -- bun run biome:lint && bun run biome:check && bun run biome:format && next build",
+		"dev:local": "dotenv -e ./envs/.env.development -- next dev",
+		"dev": "dotenv -e ./envs/.env.development -- [ -d .next ] || bun run build:dev && bun run start:obfuscated",
+		"build:dev": "next build && bun run obfuscate:static",
+		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
+		"start:obfuscated": "bun run next start",
+		"build": "dotenv -e ./envs/.env.production -- bun run biome:lint && bun run biome:check && bun run biome:format && next build && bun run obfuscate:static",
 		"start": "dotenv -e ./envs/.env.production -- bun run next start",
 		"lint": "next lint",
 		"biome:lint": "bunx @biomejs/biome lint --write .",
 		"biome:check": "bunx @biomejs/biome check --write .",
 		"biome:format": "bunx @biomejs/biome format --write .",
-		"build:staging": "dotenv -e ./envs/.env.staging -- bun run biome:lint && bun run biome:check && bun run biome:format && next build",
+		"build:staging": "dotenv -e ./envs/.env.staging -- bun run biome:lint && bun run biome:check && bun run biome:format && next build && bun run obfuscate:static",
 		"start:staging": "dotenv -e ./envs/.env.staging -- bun run next start"
 	},
 	"dependencies": {
