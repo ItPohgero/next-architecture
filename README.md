@@ -17,8 +17,8 @@ This project leverages a modern stack to enhance development efficiency, code co
 3. **React Hook Form**  
    Lightweight and performant library for form validation in React. It reduces re-renders and provides simple API for handling complex form use cases.
 
-4. **Ant Design**  
-   A popular React UI framework that offers a wide range of ready-to-use components, providing a clean and professional design.
+4. **Shadcn UI**  
+   A component library for building beautiful and accessible user interfaces in React. It provides a set of pre-built components that are easy to use and customize. 
 
 5. **Day.js**  
    A small and fast library for handling dates and times in JavaScript. It offers an immutable API similar to Moment.js, with support for plugins and internationalization.
