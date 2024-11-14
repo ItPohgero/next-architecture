@@ -49,15 +49,7 @@ This project leverages a modern stack to enhance development efficiency, code co
 
 To run this project locally:
 
-1. Clone this repository:
-   ```
-git clone <repository-url>
-   ```
-2. Install dependencies with bun:
-    ```
-bun install
-    ```
-3. Run the development server:
-    ```
-bun run dev
-    ```
+1. Clone this repository: ```git clone <repository-url>```
+2. Make file in folder envs (.env.development, .env.production, .env.staging)
+2. Install dependencies with bun: ```bun install```
+3. Run the development server: ```bun run dev```
