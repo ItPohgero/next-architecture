@@ -35,6 +35,8 @@ This project leverages a modern stack to enhance development efficiency, code co
 9. **Axios**  
    A popular library for making HTTP requests, providing promise-based methods for handling API requests and responses.
 
+10. **Next Themes**
+   A library for handling dark mode and light mode in Next.js applications, making it easy to toggle between themes.
 ---
 
 ### Getting Started

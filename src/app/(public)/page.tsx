@@ -1,3 +1,4 @@
+'use client';
 import ScreenPublic from "@/interfaces/screens/screen_public/main";
 import React from "react";
 
