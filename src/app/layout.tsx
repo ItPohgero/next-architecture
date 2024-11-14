@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
 import MainLayout from "@/interfaces/layouts/main_layout";
-import ProviderAntd from "@/modules/providers/antd_provider";
 import { ProviderReduxToolkit } from "@/modules/providers/redux_provider";
 import ProviderTheme from "@/modules/providers/theme_provider";
 import { Color } from "@/styles/color";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import NextTopLoader from "nextjs-toploader";
 
 const geistSans = localFont({
@@ -35,20 +33,14 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<ProviderTheme>
-					<AntdRegistry>
-						<ProviderAntd>
-							<ProviderReduxToolkit>
-								<MainLayout>
-									<NextTopLoader height={2} color={Color.Main.Base} />
-									<main className="bg-white dark:bg-neutral-900">
-										{children}
-									</main>
-								</MainLayout>
-							</ProviderReduxToolkit>
-						</ProviderAntd>
-					</AntdRegistry>
-				</ProviderTheme>
+				<ProviderReduxToolkit>
+					<ProviderTheme>
+						<MainLayout>
+							<NextTopLoader height={2} color={Color.Main.Base} />
+							<main>{children}</main>
+						</MainLayout>
+					</ProviderTheme>
+				</ProviderReduxToolkit>
 			</body>
 		</html>
 	);

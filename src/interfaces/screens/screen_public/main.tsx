@@ -1,14 +1,13 @@
 "use client";
 import { ENV } from "@/configs/environment";
+import { Button } from "@/interfaces/components/ui/button";
 import FormInput from "@/interfaces/components/form-input";
 import { createCookies } from "@/modules/cookies";
 import { post } from "@/services/api/main/call";
 import { MAIN_ENDPOINT } from "@/services/api/main/endpoint";
 import { PATH } from "@/shared/path";
 import type { Inputs } from "@/types/screen_public.types";
-import AppIcon from "@/utils/use_icon";
 import UseTheme from "@/utils/use_theme";
-import { Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
@@ -51,7 +50,7 @@ const ScreenPublic = () => {
 	return (
 		<Fragment>
 			<div className="h-screen flex justify-center items-center">
-				<Card>
+				<div>
 					<form onSubmit={onSubmit}>
 						<div className="text-center mb-4">env : {ENV.MODE}</div>
 						<div className="flex justify-center">
@@ -76,15 +75,12 @@ const ScreenPublic = () => {
 						<div className="h-4" />
 						<Button
 							disabled={loading}
-							icon={loading && <AppIcon size="small" icon="loading" />}
-							variant="outlined"
-							htmlType="submit"
 							className="w-full"
 						>
 							Submit
 						</Button>
 					</form>
-				</Card>
+				</div>
 			</div>
 		</Fragment>
 	);

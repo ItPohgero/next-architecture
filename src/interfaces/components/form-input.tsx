@@ -1,20 +1,6 @@
-import { Icon } from "@iconify/react";
-import {
-	Checkbox,
-	ColorPicker,
-	DatePicker,
-	Input,
-	InputNumber,
-	Radio,
-	Select,
-	Spin,
-	TimePicker,
-} from "antd";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import { format } from "date-fns"
 import { debounce } from "lodash";
 import React, {
-	Fragment,
 	type ReactNode,
 	useEffect,
 	useMemo,
@@ -30,7 +16,15 @@ import {
 	type Path,
 	type RegisterOptions,
 } from "react-hook-form";
-import { Else, If, Then } from "react-if";
+import { Checkbox } from "./ui/checkbox";
+import { Input } from "./ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "./ui/calendar";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Label } from "./ui/label";
 
 export type OptionType = { label: string; value: string | number };
 
@@ -47,15 +41,12 @@ type CustomInputProps<
 	>;
 	label?: string;
 	type:
-		| "text"
-		| "password"
-		| "number"
-		| "date"
-		| "time"
-		| "checkbox"
-		| "radio"
-		| "color"
-		| "select";
+	| "text"
+	| "password"
+	| "number"
+	| "date"
+	| "checkbox"
+	| "radio"
 	options?: OptionType[];
 	placeholder?: string;
 	defaultValue?: FieldPathValue<TFieldValues, TName>;
@@ -87,10 +78,7 @@ const FormInput = <
 	errors,
 	manualSearch,
 	onSearch,
-	callbackSelect,
 	maxLength,
-	prefix,
-	suffix,
 }: CustomInputProps<TFieldValues, TName>) => {
 	const [searchInput, setSearchInput] = useState<string>("");
 
@@ -112,11 +100,8 @@ const FormInput = <
 			case "text":
 				return (
 					<Input
-						prefix={prefix}
-						suffix={suffix}
 						disabled={disabled}
 						maxLength={maxLength || 255}
-						showCount={!!maxLength}
 						{...field}
 						placeholder={placeholder}
 						onChange={(e) => field.onChange(e.target.value)}
@@ -124,7 +109,8 @@ const FormInput = <
 				);
 			case "password":
 				return (
-					<Input.Password
+					<Input
+						type="password"
 						{...field}
 						placeholder={placeholder}
 						onChange={(e) => field.onChange(e.target.value)}
@@ -132,7 +118,8 @@ const FormInput = <
 				);
 			case "number":
 				return (
-					<InputNumber
+					<Input
+						type="number"
 						disabled={disabled}
 						{...field}
 						placeholder={placeholder}
@@ -142,114 +129,54 @@ const FormInput = <
 				);
 			case "date":
 				return (
-					<DatePicker
-						disabled={disabled}
-						className="w-full"
-						suffixIcon={
-							<Icon
-								className="w-6 h-6"
-								icon="solar:calendar-mark-line-duotone"
+					<Popover>
+						<PopoverTrigger asChild>
+							<Button
+								variant={"outline"}
+								className={cn(
+									"w-[280px] justify-start text-left font-normal",
+									!field.value && "text-muted-foreground"
+								)}
+							>
+								<CalendarIcon />
+								{field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+							</Button>
+						</PopoverTrigger>
+						<PopoverContent className="w-auto p-0">
+							<Calendar
+								mode="single"
+								selected={field?.value}
+								onSelect={field?.onChange}
+								initialFocus
 							/>
-						}
-						{...field}
-						value={dayjs(field.value) as Dayjs | null}
-						onChange={(date) => field.onChange(date as Dayjs | null)}
-					/>
-				);
-			case "time":
-				return (
-					<TimePicker
-						disabled={disabled}
-						{...field}
-						value={field.value as Dayjs | null}
-						onChange={(time) => field.onChange(time as Dayjs | null)}
-					/>
+						</PopoverContent>
+					</Popover>
 				);
 			case "checkbox":
 				return (
 					<Checkbox
 						{...field}
 						checked={field.value as boolean}
-						onChange={(e) => field.onChange(e.target.checked)}
+						onChange={(e) => field.onChange(e.target)}
 					>
 						{label}
 					</Checkbox>
 				);
-			case "select": {
-				const selectProps = {
-					...field,
-					placeholder,
-					className: "w-full",
-					showSearch: true,
-					loading: false,
-					options: options ?? [],
-					notFoundContent: <Spin size="small" />,
-					suffixIcon: <Icon className="w-8 h-8" icon="mdi:chevron-down" />,
-					onChange: (
-						value: string | number | (string | number)[],
-						option: OptionType | OptionType[],
-					) => {
-						field.onChange(value);
-
-						if (Array.isArray(option)) {
-							for (const opt of option) {
-								if (opt.label && callbackSelect) {
-									callbackSelect({
-										label: opt.label.toString(),
-										value: opt.value,
-									});
-								}
-							}
-						} else if (option?.label && callbackSelect) {
-							callbackSelect({
-								label: option.label.toString(),
-								value: option.value,
-							});
-						}
-					},
-				};
-
-				return (
-					<Fragment>
-						<If condition={manualSearch}>
-							<Then>
-								<Select
-									{...selectProps}
-									filterOption={false}
-									onSearch={setSearchInput}
-								/>
-							</Then>
-							<Else>
-								<Select
-									{...selectProps}
-									filterOption={(input, option) =>
-										(option?.label ?? "")
-											.toLowerCase()
-											.includes(input.toLowerCase())
-									}
-								/>
-							</Else>
-						</If>
-					</Fragment>
-				);
-			}
 			case "radio":
 				return (
-					<Radio.Group
+					<RadioGroup
 						{...field}
-						onChange={(e) => field.onChange(e.target.value)}
-						value={field.value as string | number}
-					>
+						onChange={(e) => field.onChange(e.target)}
+						value={field.value}
+						defaultValue="option-one">
 						{options?.map((option) => (
-							<Radio key={option.value} value={option.value}>
-								{option.label}
-							</Radio>
+							<div key={option.value} className="flex items-center space-x-2">
+								<RadioGroupItem value={option.value as string} id={option?.value as string} />
+								<Label htmlFor={option?.value as string}>{option?.value}</Label>
+							</div>
 						))}
-					</Radio.Group>
-				);
-			case "color":
-				return (
-					<ColorPicker {...field} onChange={(color) => field.onChange(color)} />
+					</RadioGroup>
+
 				);
 			default:
 				return (

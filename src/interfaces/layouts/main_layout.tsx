@@ -20,7 +20,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
 
 	return (
 		<Fragment>
-			<main>{children}</main>
+			<main className="dark:bg-neutral-900">{children}</main>
 		</Fragment>
 	);
 };
