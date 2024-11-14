@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
 import MainLayout from "@/interfaces/layouts/main_layout";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import ProviderTheme from "@/modules/providers/theme_provider";
-import { ProviderReduxToolkit } from "@/modules/providers/redux_provider";
 import ProviderAntd from "@/modules/providers/antd_provider";
-import NextTopLoader from "nextjs-toploader";
+import { ProviderReduxToolkit } from "@/modules/providers/redux_provider";
+import ProviderTheme from "@/modules/providers/theme_provider";
 import { Color } from "@/styles/color";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -41,7 +41,9 @@ export default function RootLayout({
 							<ProviderReduxToolkit>
 								<MainLayout>
 									<NextTopLoader height={2} color={Color.Main.Base} />
-									<main className="bg-white dark:bg-neutral-900">{children}</main>
+									<main className="bg-white dark:bg-neutral-900">
+										{children}
+									</main>
 								</MainLayout>
 							</ProviderReduxToolkit>
 						</ProviderAntd>

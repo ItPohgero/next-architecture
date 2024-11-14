@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { type FC, Fragment, type PropsWithChildren } from "react";
 
 const PublicLayout: FC<PropsWithChildren> = ({ children }) => {

@@ -1,6 +1,6 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { useTheme as THEME} from "next-themes";
+import { useTheme as THEME } from "next-themes";
 import { Case, Switch } from "react-if";
 
 const UseTheme = () => {

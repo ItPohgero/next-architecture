@@ -1,11 +1,11 @@
-import { jwtVerify } from "jose";
+// import { jwtVerify } from "jose";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { ENV } from "./configs/environment";
 import { PATH } from "./shared/path";
 
 const TOKEN_KEY = ENV.TOKEN_KEY;
-const JWT_SECRET = ENV.JWT_SCREET;
+// const JWT_SECRET = ENV.JWT_SCREET;
 
 export async function middleware(request: NextRequest) {
 	const token = request.cookies.get(TOKEN_KEY);
