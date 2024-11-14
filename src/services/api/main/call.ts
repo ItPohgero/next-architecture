@@ -3,7 +3,7 @@
 import { ENV } from "@/configs/environment";
 import { removeCookies } from "@/modules/cookies";
 import type { AxiosError, AxiosResponse } from "axios";
-import api from "./main_interceptor";
+import api from "./interceptor";
 
 interface Status {
 	Code: number;

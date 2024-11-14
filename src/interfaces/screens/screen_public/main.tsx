@@ -2,8 +2,8 @@
 import { ENV } from "@/configs/environment";
 import FormInput from "@/interfaces/components/form-input";
 import { createCookies } from "@/modules/cookies";
-import { post } from "@/services/api/main_call";
-import { MAIN_ENDPOINT } from "@/services/api/main_endpoint";
+import { post } from "@/services/api/main/call";
+import { MAIN_ENDPOINT } from "@/services/api/main/endpoint";
 import { PATH } from "@/shared/path";
 import type { Inputs } from "@/types/screen_public.types";
 import AppIcon from "@/utils/use_icon";
