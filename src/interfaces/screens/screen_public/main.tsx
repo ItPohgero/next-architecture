@@ -6,6 +6,8 @@ import { post } from "@/services/api/main_call";
 import { MAIN_ENDPOINT } from "@/services/api/main_endpoint";
 import { PATH } from "@/shared/path";
 import type { Inputs } from "@/types/screen_public.types";
+import AppIcon from "@/utils/use_icon";
+import UseTheme from "@/utils/use_theme";
 import { Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 import React, { Fragment } from "react";
@@ -24,8 +26,10 @@ const ScreenPublic = () => {
             password: "emilyspass",
         },
     });
+    const [loading, setLoading] = React.useState<boolean>(false);
     const onSubmit = handleSubmit(async (data) => {
         try {
+            setLoading(true);
             const { Kind, OK, StatusCode } = await post(MAIN_ENDPOINT.Auth.Login, data);
             console.log({ OK, StatusCode });
             if (!OK) {
@@ -45,6 +49,9 @@ const ScreenPublic = () => {
                 <Card>
                     <form onSubmit={onSubmit}>
                         <div className="text-center mb-4">env : {ENV.MODE}</div>
+                        <div className="flex justify-center">
+                            <UseTheme/>
+                        </div>
                         <FormInput
                             label="Username"
                             control={control}
@@ -61,8 +68,8 @@ const ScreenPublic = () => {
                             errors={errors}
                             rules={{ required: true }}
                         />
-                        <div className="h-2" />
-                        <Button htmlType="submit">
+                        <div className="h-4" />
+                        <Button disabled={loading} icon={loading && <AppIcon size="small" icon="loading"/>} variant="outlined" htmlType="submit" className="w-full">
                             Submit
                         </Button>
                     </form>

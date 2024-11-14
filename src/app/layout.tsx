@@ -41,7 +41,7 @@ export default function RootLayout({
 							<ProviderReduxToolkit>
 								<MainLayout>
 									<NextTopLoader height={2} color={Color.Main.Base} />
-									<main>{children}</main>
+									<main className="bg-white dark:bg-neutral-900">{children}</main>
 								</MainLayout>
 							</ProviderReduxToolkit>
 						</ProviderAntd>
