@@ -43,6 +43,7 @@ This project leverages a modern stack to enhance development efficiency, code co
 
 12. **dotenv-cli**
    A CLI tool for loading environment variables from .env files. (bun add -d dotenv-cli)
+
 ---
 
 ### Getting Started
@@ -53,3 +54,9 @@ To run this project locally:
 2. Make file in folder envs (.env.development, .env.production, .env.staging)
 2. Install dependencies with bun: ```bun install```
 3. Run the development server: ```bun run dev```
+
+
+Credit to [Wahyu Agus Arifin](https://github.com/itpohgero)
+- itpohgero@gmail.com
+- ig : @wahyuagusarifin
+- linkedin : [wahyuagusarifin](https://id.linkedin.com/in/wahyu-agus-arifin-8a6992215)
