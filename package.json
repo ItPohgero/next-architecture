@@ -12,7 +12,7 @@
 		"start:obfuscated": "bun run next start",
 		"start:staging": "dotenv -e ./envs/.env.staging -- bun run next start",
 		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
-		"prepare-build": "bun run lint && bun run check && bun run format",
+		"prepare-build": "bun run lint:biome && bun run check:biome && bun run format:biome",
 		"lint": "next lint",
 		"lint:biome": "bunx @biomejs/biome lint --write .",
 		"check:biome": "bunx @biomejs/biome check --write .",
