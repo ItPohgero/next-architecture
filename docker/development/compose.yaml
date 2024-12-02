@@ -1,8 +1,8 @@
 services:
-  with-docker-multi-env-development:
+  next-architecture-development:
     build:
       context: ../../
       dockerfile: docker/development/Dockerfile
-    image: with-docker-multi-env-development
+    image: next-architecture-development
     ports:
       - "3001:3000"

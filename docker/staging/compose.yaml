@@ -1,8 +1,8 @@
 services:
-  with-docker-multi-env-staging:
+  next-architecture-staging:
     build:
       context: ../../
       dockerfile: docker/staging/Dockerfile
-    image: with-docker-multi-env-staging
+    image: next-architecture-staging
     ports:
       - "3002:3000"
