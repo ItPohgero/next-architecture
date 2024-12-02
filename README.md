@@ -46,7 +46,24 @@ This project leverages a modern stack to enhance development efficiency, code co
 
 13. **obfuscated**
    The obfuscated command is used to obfuscate the static files in the Next.js app. It uses the JavaScript Obfuscator library to obfuscate the code and reduce the size of the files.
-   
+14. **Husky**
+   A package manager for Git hooks, allowing you to configure and run scripts during various Git lifecycle events.
+
+15. **Commitlint**
+   A package for linting commit messages, ensuring that they follow a specific format and conventions.
+
+16. **Docker Multi-Stage Build and Environment**
+   A project that uses Docker for building and deploying multiple environments for development, staging, and production.
+
+17. **Makefile**
+   A project that uses Makefile for building and deploying multiple environments for development, staging, and production.
+
+18. **File Setup (Auto and Manual)**
+   A project that sets up SSH keys for deployment.
+
+19. **Tailwind CSS**
+   A CSS framework that provides a set of utility classes for building responsive and mobile-first websites.
+
 ---
 
 ### Getting Started
