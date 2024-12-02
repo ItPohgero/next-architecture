@@ -8,10 +8,10 @@
 		"build": "next build",
 		"lint": "next lint",
 		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
-		"lint:biome": "pnpm @biomejs/biome lint --write .",
-		"check:biome": "pnpm @biomejs/biome check --write .",
-		"format:biome": "pnpm @biomejs/biome format --write .",
-		"prepare": "husky"
+		"lint:biome": "pnpm exec biome lint --write .",
+		"check:biome": "pnpm exec biome check --write .",
+		"format:biome": "pnpm exec biome format --write .",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@iconify/react": "^5.0.2",
