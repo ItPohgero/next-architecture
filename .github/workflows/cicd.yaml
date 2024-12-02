@@ -1,3 +1,7 @@
+# SSH_PRIVATE_KEY
+# DROPLET_IP
+# SERVER_USERNAME
+
 name: CI/CD Pipeline
 
 on:
@@ -14,22 +18,34 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/development'
     env:
-      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+      PROJECT_PATH: /path/to/your/project
     steps:
-      # https://github.com/marketplace/actions/checkout
       - name: Checkout Code
         uses: actions/checkout@v4.2.2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3.7.1
 
       - name: Set up Docker Compose
-        run: sudo apt-get install docker-compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Build and Deploy to Development Droplet
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh root@<droplet-ip> <<EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.DROPLET_IP }} << EOF
             cd $PROJECT_PATH
+            git pull origin development
             make build-development
             make start-development
           EOF
@@ -41,21 +57,34 @@ jobs:
     needs: build-development
     if: github.ref == 'refs/heads/staging'
     env:
-      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+      PROJECT_PATH: /path/to/your/project
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4.2.2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3.7.1
 
       - name: Set up Docker Compose
-        run: sudo apt-get install docker-compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Build and Deploy to Staging Droplet
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh root@<droplet-ip> <<EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.DROPLET_IP }} << EOF
             cd $PROJECT_PATH
+            git pull origin staging
             make build-staging
             make start-staging
           EOF
@@ -67,21 +96,34 @@ jobs:
     needs: build-staging
     if: github.ref == 'refs/heads/production'
     env:
-      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+      PROJECT_PATH: /path/to/your/project
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4.2.2
+
+      - name: Setup SSH
+        uses: webfactor/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3.7.1
 
       - name: Set up Docker Compose
-        run: sudo apt-get install docker-compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Build and Deploy to Production Droplet
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh root@<droplet-ip> <<EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.DROPLET_IP }} << EOF
             cd $PROJECT_PATH
+            git pull origin production
             make build-production
             make start-production
           EOF
