@@ -1,0 +1,87 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - development
+      - staging
+      - production
+
+jobs:
+  # Job untuk Development
+  build-development:
+    name: Build and Deploy Development
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    env:
+      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3.7.1
+
+      - name: Set up Docker Compose
+        run: sudo apt-get install docker-compose
+
+      - name: Build and Deploy to Development Droplet
+        run: |
+          ssh root@<droplet-ip> <<EOF
+            cd $PROJECT_PATH
+            make build-development
+            make start-development
+          EOF
+
+  # Job untuk Staging
+  build-staging:
+    name: Build and Deploy Staging
+    runs-on: ubuntu-latest
+    needs: build-development
+    if: github.ref == 'refs/heads/staging'
+    env:
+      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3.7.1
+
+      - name: Set up Docker Compose
+        run: sudo apt-get install docker-compose
+
+      - name: Build and Deploy to Staging Droplet
+        run: |
+          ssh root@<droplet-ip> <<EOF
+            cd $PROJECT_PATH
+            make build-staging
+            make start-staging
+          EOF
+
+  # Job untuk Production
+  build-production:
+    name: Build and Deploy Production
+    runs-on: ubuntu-latest
+    needs: build-staging
+    if: github.ref == 'refs/heads/production'
+    env:
+      PROJECT_PATH: /path/to/your/project  # PROJECT_PATH APP
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3.7.1
+
+      - name: Set up Docker Compose
+        run: sudo apt-get install docker-compose
+
+      - name: Build and Deploy to Production Droplet
+        run: |
+          ssh root@<droplet-ip> <<EOF
+            cd $PROJECT_PATH
+            make build-production
+            make start-production
+          EOF
