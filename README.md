@@ -42,7 +42,7 @@ This project leverages a modern stack to enhance development efficiency, code co
    A library for loading content in Next.js applications, providing a loading indicator while content is being fetched.
 
 12. **dotenv-cli**
-   A CLI tool for loading environment variables from .env files. (bun add -d dotenv-cli)
+   A CLI tool for loading environment variables from .env files. (pnpm add -d dotenv-cli)
 
 13. **obfuscated**
    The obfuscated command is used to obfuscate the static files in the Next.js app. It uses the JavaScript Obfuscator library to obfuscate the code and reduce the size of the files.
@@ -55,8 +55,38 @@ To run this project locally:
 
 1. Clone this repository: ```git clone <repository-url>```
 2. Make file in folder envs (.env.development, .env.production, .env.staging)
-2. Install dependencies with bun: ```bun install```
-3. Run the development server: ```bun run dev```
+2. Install dependencies with pnpm: ```pnpm install```
+3. Run the development server: ```pnpm run dev```
+
+
+## Using Docker and Makefile
+
+### Development environment - for doing testing
+
+```
+make build-development
+make start-development
+```
+
+Open http://localhost:3001
+
+### Staging environment - for doing UAT testing
+
+```
+make build-staging
+make start-staging
+```
+
+Open http://localhost:3002
+
+### Production environment - for users
+
+```
+make build-production
+make start-production
+```
+
+Open http://localhost:3003
 
 
 Credit to [Wahyu Agus Arifin](https://github.com/itpohgero)
