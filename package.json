@@ -11,7 +11,7 @@
 		"lint:biome": "pnpm exec biome lint --write .",
 		"check:biome": "pnpm exec biome check --write .",
 		"format:biome": "pnpm exec biome format --write .",
-		"prepare": "husky install"
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"@iconify/react": "^5.0.2",
@@ -44,12 +44,15 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@commitlint/cli": "^19.6.0",
+		"@commitlint/config-conventional": "^19.6.0",
 		"@types/node": "^20.17.9",
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
 		"dotenv-cli": "^7.4.4",
 		"eslint": "^9.16.0",
 		"eslint-config-next": "15.0.3",
+		"husky": "^9.1.7",
 		"javascript-obfuscator": "^4.1.1",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.15",
