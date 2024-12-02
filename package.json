@@ -10,7 +10,8 @@
 		"obfuscate:static": "javascript-obfuscator .next/static --output .next/static --compact true --self-defending true --target 'browser'",
 		"lint:biome": "pnpm @biomejs/biome lint --write .",
 		"check:biome": "pnpm @biomejs/biome check --write .",
-		"format:biome": "pnpm @biomejs/biome format --write ."
+		"format:biome": "pnpm @biomejs/biome format --write .",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"@iconify/react": "^5.0.2",
@@ -24,7 +25,7 @@
 		"axios": "^1.7.8",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
-		"date-fns": "^4.1.0",
+		"date-fns": "^3.6.0",
 		"dayjs": "^1.11.13",
 		"jose": "^5.9.6",
 		"lodash": "^4.17.21",
